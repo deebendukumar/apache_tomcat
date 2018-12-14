@@ -1,0 +1,26 @@
+playbook for tomcat copy file
+---
+- name: Transfer and execute a script.
+  hosts: tomcat
+  become: true
+  tasks:
+    - name: Transfer the script for manager
+      copy: src=/home/jenkins/ansible/context.xml  dest=/mnt mode=0777
+    - name: Transfer the script for host manger
+      copy: src=/home/jenkins/ansible/host/context.xml  dest=/tmp mode=0777
+	- name: Transfer the script for user
+      copy: src=/home/jenkins/ansible/tomcat-users.xml  dest=/tmp mode=0777 
+
+playbook for execute tomcat on remote server
+
+---
+- hosts: tomcat 
+  name: Transfer and execute a script.
+  become: true
+  tasks:
+    - name: Transfer the script
+      copy: src=/home/jenkins/ansible/tomcat/tomcat.sh dest=/root/ mode=0777
+
+    - command: sh tomcat.sh
+	  
+	  
